@@ -1,0 +1,37 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <map>
+#include <string>
+#include <cstring>
+using namespace std;
+
+
+int main() {
+
+	vector<string> output;
+	string line;
+	int max = 0;
+
+	while (getline(cin, line)) {
+		if (line.length() > max) max = line.length();
+		output.push_back(line);
+	}
+
+	for (int i = 0; i < output.size(); i++) {
+		string& temp = output[i];
+		temp.resize(max, ' ');
+	}
+
+	for (int i = 0; i < max; i++) {
+		for (int j = output.size() - 1; j >= 0; j--) {
+			cout << output[j][i];
+		}
+		cout << endl;
+	}
+
+
+
+	return 0;
+}
