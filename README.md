@@ -1,1 +1,1 @@
-# readme nothing speecial
+#114-2 c++實習課後github練習
