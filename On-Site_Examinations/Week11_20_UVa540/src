@@ -1,0 +1,51 @@
+#include <iostream>
+#include <queue>
+#include <map>
+#include <string>
+using namespace std;
+
+int main() {
+    int t;
+    int scenario = 1;
+    
+    while (cin >> t && t != 0) {
+        map<int, int> teamOf;
+        
+        for (int i = 0; i < t; i++) {
+            int n;
+            cin >> n;
+            for (int j = 0; j < n; j++) {
+                int member;
+                cin >> member;
+                teamOf[member] = i;
+            }
+        }
+        
+        queue<int> teamQueue;           // 队伍顺序
+        queue<int> memberQueue[1000];   // 每个队伍的成员队列
+        string cmd;
+        
+        cout << "Scenario #" << scenario++ << endl;
+        
+        while (cin >> cmd && cmd != "STOP") {
+            if (cmd == "ENQUEUE") {
+                int x;
+                cin >> x;
+                int team = teamOf[x];
+                if (memberQueue[team].empty()) {
+                    teamQueue.push(team);
+                }
+                memberQueue[team].push(x);
+            } else if (cmd == "DEQUEUE") {
+                int team = teamQueue.front();
+                cout << memberQueue[team].front() << endl;
+                memberQueue[team].pop();
+                if (memberQueue[team].empty()) {
+                    teamQueue.pop();
+                }
+            }
+        }
+        cout << endl;
+    }
+    return 0;
+}

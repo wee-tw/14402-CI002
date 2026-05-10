@@ -1,0 +1,37 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+int main() {
+	int T;
+	cin >> T;
+	while (T--) {
+		int n;
+		cin >> n;
+		cin.ignore();
+
+		vector<int> move(n);
+		int position = 0;
+
+		for (int i = 0; i < n; i++) {
+			string line;
+			getline(cin, line);
+
+			if (line == "LEFT") {
+				move[i] = -1;
+			}
+			else if (line == "RIGHT") {
+				move[i] = 1;
+			}
+			else {
+				int a = stoi(line.substr(8)) - 1;  //atoi()一行完成字符串到整數的轉換 -1是因為vector從0開始
+				move[i] = move[a];
+			}
+			position += move[i];
+		}
+
+		cout << position << endl;
+	}
+	return 0;
+}

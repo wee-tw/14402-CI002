@@ -1,0 +1,16 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    long long int S, D;
+    while (cin >> S >> D) {
+        long long int sum = 0;
+        long long int day = S;
+        while (sum < D) {
+            sum += day;
+            day++;
+        }
+        cout << day - 1 << endl;
+    }
+    return 0;
+}

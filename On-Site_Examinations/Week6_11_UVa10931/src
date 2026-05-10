@@ -1,0 +1,29 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int n;
+    while (cin >> n && n != 0) {
+        string binary = "";
+        int count = 0;
+        int temp = n;
+        
+        // 转换为二进制并统计1的个数
+        while (temp > 0) {
+            int bit = temp % 2;
+            binary += (bit + '0');  // 存储二进制位（注意顺序是反的）
+            if (bit == 1) {
+                count++;
+            }
+            temp /= 2;
+        }
+        
+        // 反转得到正确的二进制顺序
+        reverse(binary.begin(), binary.end());
+        
+        cout << "The parity of " << binary << " is " << count << " (mod 2)." << endl;
+    }
+    return 0;
+}

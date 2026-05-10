@@ -1,0 +1,51 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+// 正确的比较函数：次数升序，次数相同则 ASCII 降序
+bool compare(const pair<int, int>& a, const pair<int, int>& b) {
+    if (a.second != b.second) {
+        return a.second < b.second;  // 次数小的在前（升序）
+    }
+    return a.first > b.first;        // 次数相同，ASCII大的在前（降序）
+}
+
+int main() {
+    bool first = true;
+    string line;
+    
+    while (getline(cin, line)) {
+        int freq[256] = {0};  // 使用 256 确保能存储 ASCII 128
+        
+        // 统计频率
+        for (char c : line) {
+            freq[(unsigned char)c]++;
+        }
+        
+        // 收集结果（只统计 ASCII 32-128）
+        vector<pair<int, int>> result;
+        for (int i = 32; i <= 128; i++) {
+            if (freq[i] > 0) {
+                result.push_back({i, freq[i]});
+            }
+        }
+        
+        // 排序
+        sort(result.begin(), result.end(), compare);
+        
+        // 输出空行（第一组不输出）
+        if (!first) {
+            cout << endl;
+        }
+        first = false;
+        
+        // 输出结果
+        for (const auto& p : result) {
+            cout << p.first << " " << p.second << endl;
+        }
+    }
+    
+    return 0;
+}

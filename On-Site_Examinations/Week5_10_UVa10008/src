@@ -1,0 +1,49 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <map>
+#include <string>
+using namespace std;
+
+
+bool compare(pair<char, int>& a, pair<char, int>& b) {
+	if (a.second != b.second) return a.second > b.second;
+	return b.first > a.first;
+}
+
+
+
+
+int main() {
+
+	int T;
+	cin >> T;
+	cin.ignore();
+
+	map<char, int> MAP;
+
+	for (int i = 0; i < T; i++) {
+		string line;
+		getline(cin, line);
+		for (int j = 0; j < line.length(); j++) {
+			if (isalpha(line[j])) {
+				char ch;
+				ch = toupper(line[j]);
+				MAP[ch]++;
+			}
+		}
+	}
+
+	vector <pair<char, int>> v(MAP.begin(), MAP.end());
+
+	sort(v.begin(), v.end(), compare);
+
+	for (auto it = v.begin(); it < v.end(); it++) {
+		cout << it->first << " " << it->second << '\n';
+	}
+
+
+
+	return 0;
+}

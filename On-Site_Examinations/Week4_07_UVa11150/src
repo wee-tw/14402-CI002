@@ -1,0 +1,26 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    while (cin >> n) {
+        int total = 0;
+        int empty = n;
+        
+        // 经典空瓶换可乐问题：等价于每瓶可乐的成本是 2/3 瓶（借瓶法）
+        // 公式解法：n + (n-1)/(3-1) 的简化形式
+        // 更直观的循环模拟：
+        total = n;
+        while (empty >= 3) {
+            int newCola = empty / 3;
+            total += newCola;
+            empty = newCola + (empty % 3);
+        }
+        if (empty == 2) {
+            total++;  // 借一瓶还一瓶
+        }
+        
+        cout << total << endl;
+    }
+    return 0;
+}

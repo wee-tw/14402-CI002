@@ -1,0 +1,20 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int T, a, b;
+    cin >> T;                         // 读取测试组数
+    for (int caseNum = 1; caseNum <= T; ++caseNum) {
+        cin >> a >> b;                // 读取区间端点 a 和 b
+        int sum = 0;
+        // 遍历区间 [a, b] 内的所有整数
+        for (int i = a; i <= b; ++i) {
+            if (i % 2 == 1) {         // 判断是否为奇数
+                sum += i;
+            }
+        }
+        // 输出结果，格式严格为 "Case X: Y"
+        cout << "Case " << caseNum << ": " << sum << endl;
+    }
+    return 0;
+}
