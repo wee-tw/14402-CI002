@@ -1,0 +1,35 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+int main() {
+    string s;
+    int tc = 1;
+
+    while (cin >> s && s != "end") {
+        vector<char> stacks;
+
+        for (char c : s) {
+            int best = -1;
+
+            for (int i = 0; i < stacks.size(); i++) {
+                if (stacks[i] >= c) {
+                    if (best == -1 || stacks[i] < stacks[best]) {
+                        best = i;
+                    }
+                }
+            }
+
+            if (best == -1) {
+                stacks.push_back(c);
+            } else {
+                stacks[best] = c;
+            }
+        }
+
+        cout << "Case " << tc++ << ": " << stacks.size() << "\n";
+    }
+
+    return 0;
+}

@@ -1,0 +1,39 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int N, S;
+
+    while (cin >> N >> S) {
+        vector<int> arr(N);
+
+        for (int i = 0; i < N; i++) {
+            cin >> arr[i];
+        }
+
+        int left = 0;
+        int sum = 0;
+        int ans = N + 1;  //ans先設一不可能答案，表示尚未找到
+
+        for (int right = 0; right < N; right++) {
+            sum += arr[right];
+
+            while (sum >= S) {
+                ans = min(ans, right - left + 1);  //更新ans長度 (right - left + 1)
+
+                sum -= arr[left];
+                left++;
+            }
+        }
+
+        if (ans == N + 1) {
+            cout << 0 << "\n";
+        } else {
+            cout << ans << "\n";
+        }
+    }
+
+    return 0;
+}

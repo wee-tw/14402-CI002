@@ -17,7 +17,7 @@ int main() {
             if (x > maxPos) maxPos = x;
         }
         
-        cout << (maxPos - minPos) * 2 << endl;
+        cout << (maxPos - minPos) * 2 << endl;  //只需知道max、min商店位置
     }
     return 0;
 }

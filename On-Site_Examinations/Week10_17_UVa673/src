@@ -15,9 +15,9 @@ int main() {
         bool balanced = true;
         
         for (char c : line) {
-            if (c == '(' || c == '[') {
+            if (c == '(' || c == '[') {  //左括號就push
                 s.push(c);
-            } else if (c == ')') {
+            } else if (c == ')') {  //遇到右括號要檢查 !st.empty() 與是否匹配
                 if (!s.empty() && s.top() == '(') {
                     s.pop();
                 } else {
@@ -34,7 +34,7 @@ int main() {
             }
         }
         
-        if (balanced && s.empty()) {
+        if (balanced && s.empty()) {  //最後stack要為空！！！
             cout << "Yes" << endl;
         } else {
             cout << "No" << endl;

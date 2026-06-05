@@ -1,0 +1,34 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+int main() {
+
+	string a, b;
+	while (getline(cin, a) && getline(cin, b)) {
+
+		vector<int> freq1(26, 0), freq2(26, 0);
+		for (int i = 0; i < a.length(); i++) {
+			int p1 = a[i] - 'a';
+			freq1[p1]++;
+		}
+		for (int i = 0; i < b.length(); i++) {
+			int p2 = b[i] - 'a';
+			freq2[p2]++;
+		}
+
+		
+
+		for (int i = 0; i < 26; i++) {
+			int same = min(freq1[i], freq2[i]);
+			for (int j = 0; j < same; j++) {
+				cout << char(i + 'a');
+			}
+		}
+		cout << endl;
+
+
+	}
+    return 0;
+}

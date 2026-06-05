@@ -19,7 +19,7 @@ int main() {
             bool possible = true;
             
             for (int i = 0; i < n; i++) {
-                while (current <= n && (station.empty() || station.top() != target[i])) {
+                while (current <= n && (station.empty() || station.top() != target[i])) {  //一直 push 車廂進 stack，直到 stack top 剛好是 need
                     station.push(current);
                     current++;
                 }
