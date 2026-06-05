@@ -1,0 +1,92 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+vector<int> ans;
+
+long long maxNodes(int h) {
+    long long res = 0;
+
+    for (int i = 0; i < h; i++) {
+        res = res * 2 + 1;
+
+        // 避免 overflow，題目 n 不會需要超大值
+        if (res > 1000000000LL) {
+            return 1000000000LL;
+        }
+    }
+
+    return res;
+}
+
+int minHeight(int nodes) {
+    int h = 0;
+    long long cap = 0;
+
+    while (cap < nodes) {
+        h++;
+        cap = cap * 2 + 1;
+    }
+
+    return h;
+}
+
+void build(int l, int r, int h) {
+    int cnt = r - l + 1;
+
+    if (cnt <= 0) return;
+
+    if (cnt == 1) {
+        ans.push_back(l);
+        return;
+    }
+
+    long long rightMax = maxNodes(h - 1);
+
+    int leftCnt = max(h - 1, cnt - 1 - (int)rightMax);
+
+    int root = l + leftCnt;
+
+    ans.push_back(root);
+
+    // 左子樹負責撐出高度 h - 1
+    build(l, root - 1, h - 1);
+
+    // 右子樹只要能放完剩下節點即可，高度不用硬撐到 h - 1
+    int rightCnt = r - root;
+
+    if (rightCnt > 0) {
+        int rightH = minHeight(rightCnt);
+        build(root + 1, r, rightH);
+    }
+}
+
+int main() {
+    int n, h;
+    int tc = 1;
+
+    while (cin >> n >> h) {
+        if (n == 0 && h == 0) break;
+
+        cout << "Case " << tc++ << ": ";
+
+        if (n < h || n > maxNodes(h)) {
+            cout << "Impossible.\n";
+            continue;
+        }
+
+        ans.clear();
+
+        build(1, n, h);
+
+        for (int i = 0; i < ans.size(); i++) {
+            if (i) cout << " ";
+            cout << ans[i];
+        }
+
+        cout << "\n";
+    }
+
+    return 0;
+}

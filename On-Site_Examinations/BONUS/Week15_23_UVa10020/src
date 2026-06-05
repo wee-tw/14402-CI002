@@ -1,0 +1,77 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+struct Segment {
+    int l, r;
+};
+
+int main() {
+    int T;
+    cin >> T;
+
+    for (int tc = 0; tc < T; tc++) {
+        int M;
+        cin >> M;
+
+        vector<Segment> segs;
+
+        while (true) {
+            int l, r;
+            cin >> l >> r;
+
+            if (l == 0 && r == 0) break;
+
+            segs.push_back({l, r});
+        }
+
+        sort(segs.begin(), segs.end(), [](const Segment& a, const Segment& b) {
+            if (a.l != b.l) return a.l < b.l;
+            return a.r > b.r;
+        });
+
+        vector<Segment> ans;
+
+        int cur = 0;
+        int i = 0;
+        int n = segs.size();
+        bool ok = true;
+
+        while (cur < M) {
+            int bestR = cur;
+            Segment bestSeg;
+            bool found = false;
+
+            while (i < n && segs[i].l <= cur) {
+                if (segs[i].r > bestR) {
+                    bestR = segs[i].r;
+                    bestSeg = segs[i];
+                    found = true;
+                }
+                i++;
+            }
+
+            if (!found) {
+                ok = false;
+                break;
+            }
+
+            ans.push_back(bestSeg);
+            cur = bestR;
+        }
+
+        if (tc > 0) cout << "\n";
+
+        if (!ok) {
+            cout << 0 << "\n";
+        } else {
+            cout << ans.size() << "\n";
+            for (auto s : ans) {
+                cout << s.l << " " << s.r << "\n";
+            }
+        }
+    }
+
+    return 0;
+}

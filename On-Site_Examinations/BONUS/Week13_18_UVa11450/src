@@ -1,0 +1,61 @@
+#include <iostream>
+#include <vector>
+#include <cstring>
+using namespace std;
+
+int main() {
+    int T;
+    cin >> T;
+
+    while (T--) {
+        int M, C;
+        cin >> M >> C;
+
+        vector<vector<int>> price(C);
+
+        for (int i = 0; i < C; i++) {
+            int k;
+            cin >> k;
+
+            price[i].resize(k);
+
+            for (int j = 0; j < k; j++) {
+                cin >> price[i][j];
+            }
+        }
+
+        bool dp[25][205];
+        memset(dp, false, sizeof(dp));
+
+        dp[0][0] = true;
+
+        for (int i = 0; i < C; i++) {
+            for (int money = 0; money <= M; money++) {
+                if (dp[i][money]) {
+                    for (int p : price[i]) {
+                        if (money + p <= M) {
+                            dp[i + 1][money + p] = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        int ans = -1;
+
+        for (int money = M; money >= 0; money--) {
+            if (dp[C][money]) {
+                ans = money;
+                break;
+            }
+        }
+
+        if (ans == -1) {
+            cout << "no solution\n";
+        } else {
+            cout << ans << "\n";
+        }
+    }
+
+    return 0;
+}

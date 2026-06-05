@@ -1,0 +1,70 @@
+#include <iostream>
+#include <string>
+#include <stack>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+string sourceStr, targetStr;
+int n;
+
+void dfs(int inIdx, int outIdx, stack<char>& st, vector<char>& ops) {
+    if (outIdx == n) {
+        for (int i = 0; i < ops.size(); i++) {
+            if (i) cout << " ";
+            cout << ops[i];
+        }
+        cout << "\n";
+        return;
+    }
+
+    // Choice 1: push
+    if (inIdx < n) {
+        st.push(sourceStr[inIdx]);
+        ops.push_back('i');
+
+        dfs(inIdx + 1, outIdx, st, ops);
+
+        ops.pop_back();
+        st.pop();
+    }
+
+    // Choice 2: pop
+    if (!st.empty() && st.top() == targetStr[outIdx]) {
+        char c = st.top();
+        st.pop();
+        ops.push_back('o');
+
+        dfs(inIdx, outIdx + 1, st, ops);
+
+        ops.pop_back();
+        st.push(c);
+    }
+}
+
+int main() {
+    while (cin >> sourceStr >> targetStr) {
+        cout << "[\n";
+
+        if (sourceStr.size() == targetStr.size()) {
+            string a = sourceStr;
+            string b = targetStr;
+
+            sort(a.begin(), a.end());
+            sort(b.begin(), b.end());
+
+            if (a == b) {
+                n = sourceStr.size();
+
+                stack<char> st;
+                vector<char> ops;
+
+                dfs(0, 0, st, ops);
+            }
+        }
+
+        cout << "]\n";
+    }
+
+    return 0;
+}

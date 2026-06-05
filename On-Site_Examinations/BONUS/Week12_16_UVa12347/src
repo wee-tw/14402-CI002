@@ -1,0 +1,39 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+	int val;
+	Node* l, * r;
+	Node(int v) : val(v), l(nullptr), r(nullptr) {};
+};
+
+Node* insert(Node* root, int val) {
+	if (root == nullptr) return new Node(val);
+
+	if (val < root->val) root->l = insert(root->l, val);
+	else root->r = insert(root->r, val);
+
+	return root;
+}
+
+void postorder(Node* root) {
+	if (root == nullptr) return;
+
+	postorder(root->l);
+	postorder(root->r);
+	cout << root->val << endl;
+
+}
+
+int main() {
+
+	Node* root = nullptr;
+	int x;
+	while (cin >> x) {
+		root = insert(root, x);
+	}
+
+	postorder(root);
+
+	return 0;
+}
