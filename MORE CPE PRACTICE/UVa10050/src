@@ -1,0 +1,22 @@
+#include <iostream>
+#include <vector>
+#include <numeric>   // accumulate
+using namespace std;
+
+int main() {
+    int T; cin >> T;
+    while (T--) {
+        int N, P; cin >> N >> P;
+        vector<int> days(N+1, 0);   // 0: 未罢工, 1: 罢工
+        for (int i = 0; i < P; ++i) {
+            int period; cin >> period;
+            for (int d = period; d <= N; d += period) {
+                if (d % 7 != 0 && d % 7 != 6)   // 排除周五(6)周六(7) 
+                    days[d] = 1;
+            }
+        }
+        int loss = accumulate(days.begin(), days.end(), 0);
+        cout << loss << endl;
+    }
+    return 0;
+}
