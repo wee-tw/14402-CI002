@@ -1,0 +1,14 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int best_buy = INT_MAX, profit = 0;
+        for (int price : prices) {
+            best_buy = min(best_buy, price);
+            profit = max(profit, price - best_buy);
+        }
+        return profit;
+    }
+};

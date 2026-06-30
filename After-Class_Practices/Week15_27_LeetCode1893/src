@@ -1,0 +1,19 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    bool isCovered(vector<vector<int>>& ranges, int left, int right) {
+        vector<int> diff(52, 0);
+        for (const vector<int>& r : ranges) {
+            diff[r[0]]++;
+            diff[r[1] + 1]--;
+        }
+        int cover = 0;
+        for (int x = 1; x <= 50; ++x) {
+            cover += diff[x];
+            if (left <= x && x <= right && cover <= 0) return false;
+        }
+        return true;
+    }
+};

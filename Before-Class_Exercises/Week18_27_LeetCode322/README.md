@@ -1,0 +1,21 @@
+# LeetCode 322 - Coin Change
+
+題目連結：[LeetCode 322 - Coin Change](https://leetcode.com/problems/coin-change/description/)
+
+## 題目總結
+
+給定硬幣面額，求湊出 amount 所需的最少硬幣數；無法湊出回傳 -1。
+
+## 關鍵技巧
+
+- 完全背包 DP，dp[x] 表示湊出 x 的最少硬幣數，對每個金額嘗試所有硬幣。
+- LeetCode 題目通常只需要提交 `class Solution` 或指定類別；本 repo 的 `src` 保留必要 include，方便閱讀與練習。
+
+## 解法概念
+
+先辨認題型屬於位元運算、排序、二分、stack/queue、greedy 或 DP，再把狀態縮小到題目真正需要維護的資訊。實作時注意邊界條件，例如空集合、單元素、全 0、或無法達成的情況。
+
+## 複雜度
+
+- Time: O(amount * number_of_coins)
+- Space: 視資料結構而定，通常為 O(1) 到 O(n)。

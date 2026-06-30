@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int, int> freq;
+        for (int x : nums) freq[x]++;
+        vector<vector<int>> bucket(nums.size() + 1);
+        for (unordered_map<int, int>::iterator it = freq.begin(); it != freq.end(); ++it) {
+            bucket[it->second].push_back(it->first);
+        }
+        vector<int> ans;
+        for (int f = (int)bucket.size() - 1; f >= 0 && (int)ans.size() < k; --f) {
+            for (int x : bucket[f]) {
+                ans.push_back(x);
+                if ((int)ans.size() == k) break;
+            }
+        }
+        return ans;
+    }
+};

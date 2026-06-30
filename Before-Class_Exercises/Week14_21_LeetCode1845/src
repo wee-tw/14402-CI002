@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class SeatManager {
+private:
+    priority_queue<int, vector<int>, greater<int>> available;
+
+public:
+    SeatManager(int n) {
+        for (int i = 1; i <= n; ++i) available.push(i);
+    }
+
+    int reserve() {
+        int seat = available.top();
+        available.pop();
+        return seat;
+    }
+
+    void unreserve(int seatNumber) {
+        available.push(seatNumber);
+    }
+};
