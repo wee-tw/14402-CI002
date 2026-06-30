@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int T;
+    cin >> T;
+    string line;
+    getline(cin, line);
+    getline(cin, line);
+    for (int tc = 0; tc < T; ++tc) {
+        map<string, int> cnt;
+        int total = 0;
+        while (getline(cin, line) && !line.empty()) {
+            cnt[line]++;
+            ++total;
+        }
+        if (tc) cout << '\n';
+        cout << fixed << setprecision(4);
+        for (map<string, int>::iterator it = cnt.begin(); it != cnt.end(); ++it) {
+            cout << it->first << ' ' << (100.0 * it->second / total) << '\n';
+        }
+    }
+    return 0;
+}

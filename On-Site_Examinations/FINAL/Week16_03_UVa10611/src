@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n;
+    cin >> n;
+    vector<int> h(n);
+    for (int &x : h) cin >> x;
+    int q;
+    cin >> q;
+    while (q--) {
+        int x;
+        cin >> x;
+        auto lo = lower_bound(h.begin(), h.end(), x);
+        auto hi = upper_bound(h.begin(), h.end(), x);
+        if (lo == h.begin()) cout << 'X';
+        else cout << *prev(lo);
+        cout << ' ';
+        if (hi == h.end()) cout << 'X';
+        else cout << *hi;
+        cout << '\n';
+    }
+    return 0;
+}

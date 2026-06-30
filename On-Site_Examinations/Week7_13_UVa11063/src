@@ -1,37 +1,25 @@
-#include <iostream>
-#include <vector>
-#include <set>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-    int n, caseNum = 1;
-    
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, tc = 1;
     while (cin >> n) {
-        vector<int> b(n);
-        bool valid = true;
-        
-        for (int i = 0; i < n; i++) {
-            cin >> b[i];
-            if (b[i] < 1) valid = false;
-            if (i > 0 && b[i] <= b[i-1]) valid = false;
-        }
-        
+        vector<int> a(n);
+        for (int &x : a) cin >> x;
+        bool ok = n > 0 && a[0] >= 1;
+        for (int i = 1; i < n; ++i) if (a[i] <= a[i - 1]) ok = false;
         set<int> sums;
-        for (int i = 0; i < n && valid; i++) {
-            for (int j = i; j < n; j++) {
-                int sum = b[i] + b[j];
-                if (sums.count(sum)) {
-                    valid = false;
-                    break;
-                }
-                sums.insert(sum);
+        for (int i = 0; i < n && ok; ++i) {
+            for (int j = i; j < n; ++j) {
+                int s = a[i] + a[j];
+                if (sums.count(s)) ok = false;
+                sums.insert(s);
             }
         }
-        
-        cout << "Case #" << caseNum++ << ": It is ";
-        if (!valid) cout << "not ";
-        cout << "a B2-Sequence.\n" << endl;
+        cout << "Case #" << tc++ << ": It is " << (ok ? "" : "not ") << "a B2-Sequence.\n\n";
     }
-    
     return 0;
 }

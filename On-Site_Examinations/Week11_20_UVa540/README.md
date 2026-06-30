@@ -1,10 +1,21 @@
-這題是 queue 的進階版：不是單純排人，而是「同隊的人要排在一起」，所以會用一個總隊伍 queue 加上每個 team 自己的 queue。
+# UVa 540 - Team Queue
 
-每個人都屬於某一個 team，當一個人進隊伍時，如果他的隊友已經在隊伍中，他要排在該 team 的最後面；如果他的 team 目前沒人在隊伍中，這個 team 才排到整體隊伍最後。
+題目連結：[UVa 540 - Team Queue](https://onlinejudge.org/external/5/540.pdf)
 
-![alt text](image.png)
-MAP作用是查詢每個人屬於哪個TEAM
+## 題目總結
 
-![alt text](image-2.png)
+維護隊伍內成員相鄰的特殊排隊規則。
 
-![alt text](image-3.png)
+## 關鍵技巧
+
+- 外層 queue 存目前有人的 team，內層 queue 存各 team 成員。
+- 注意 UVa 的輸入通常是多筆測資，輸出格式要完全符合題目要求。
+
+## 解法概念
+
+依題目限制選擇直接模擬、排序、貪心、二分、stack/queue 或 DP。實作時先把資料轉成容易維護的狀態，再依題目規則逐步更新答案。
+
+## 複雜度
+
+- Time: O(commands)
+- Space: 依資料結構需求，通常為 O(n) 或 O(1)。

@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int T;
+    cin >> T;
+    for (int tc = 0; tc < T; ++tc) {
+        int m, n;
+        cin >> m >> n;
+        vector<int> a(m), u(n);
+        for (int &x : a) cin >> x;
+        for (int &x : u) cin >> x;
+
+        multiset<int> low, high;
+        int inserted = 0, kth = 0;
+        if (tc) cout << '\n';
+        for (int need : u) {
+            while (inserted < need) {
+                int x = a[inserted++];
+                if (!low.empty() && x <= *prev(low.end())) low.insert(x);
+                else high.insert(x);
+                while ((int)low.size() > kth) {
+                    high.insert(*prev(low.end()));
+                    low.erase(prev(low.end()));
+                }
+                while ((int)low.size() < kth && !high.empty()) {
+                    low.insert(*high.begin());
+                    high.erase(high.begin());
+                }
+            }
+            ++kth;
+            while ((int)low.size() < kth) {
+                low.insert(*high.begin());
+                high.erase(high.begin());
+            }
+            while (!high.empty() && *prev(low.end()) > *high.begin()) {
+                int a1 = *prev(low.end()), b1 = *high.begin();
+                low.erase(prev(low.end()));
+                high.erase(high.begin());
+                low.insert(b1);
+                high.insert(a1);
+            }
+            cout << *prev(low.end()) << '\n';
+        }
+    }
+    return 0;
+}

@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int T;
+    cin >> T;
+    while (T--) {
+        int length, m;
+        cin >> length >> m;
+        length *= 100;
+        queue<int> side[2];
+        for (int i = 0; i < m; ++i) {
+            int car;
+            string bank;
+            cin >> car >> bank;
+            side[bank == "right"].push(car);
+        }
+        int cur = 0, trips = 0;
+        while (!side[0].empty() || !side[1].empty()) {
+            int load = 0;
+            while (!side[cur].empty() && load + side[cur].front() <= length) {
+                load += side[cur].front();
+                side[cur].pop();
+            }
+            cur ^= 1;
+            ++trips;
+        }
+        cout << trips << '\n';
+    }
+    return 0;
+}

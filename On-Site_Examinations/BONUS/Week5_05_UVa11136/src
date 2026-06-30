@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int days;
+    while (cin >> days && days) {
+        multiset<int> bills;
+        long long cost = 0;
+        while (days--) {
+            int k;
+            cin >> k;
+            while (k--) {
+                int x;
+                cin >> x;
+                bills.insert(x);
+            }
+            auto low = bills.begin();
+            auto high = prev(bills.end());
+            cost += *high - *low;
+            bills.erase(high);
+            bills.erase(low);
+        }
+        cout << cost << '\n';
+    }
+    return 0;
+}

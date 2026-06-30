@@ -1,29 +1,20 @@
-#include <iostream>
-#include <string>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-    int n;
-    while (cin >> n && n != 0) {
-        string binary = "";
-        int count = 0;
-        int temp = n;
-        
-        // 转换为二进制并统计1的个数
-        while (temp > 0) {
-            int bit = temp % 2;
-            binary += (bit + '0');  // 存储二进制位（注意顺序是反的）
-            if (bit == 1) {
-                count++;
-            }
-            temp /= 2;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    unsigned int n;
+    while (cin >> n && n) {
+        string bits;
+        int ones = 0;
+        for (unsigned int x = n; x; x >>= 1) {
+            bits.push_back((x & 1) ? '1' : '0');
+            ones += x & 1;
         }
-        
-        // 反转得到正确的二进制顺序
-        reverse(binary.begin(), binary.end());
-        
-        cout << "The parity of " << binary << " is " << count << " (mod 2)." << endl;
+        reverse(bits.begin(), bits.end());
+        cout << "The parity of " << bits << " is " << ones << " (mod 2).\n";
     }
     return 0;
 }

@@ -1,4 +1,26 @@
-以下整理 UVA 108 - Maximum Sum。
+#include <bits/stdc++.h>
+using namespace std;
 
-題目給一個 N x N 的矩陣，裡面有正數、負數、0。
-你要找出一個 連續子矩形，使矩形內所有數字總和最大。
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n;
+    cin >> n;
+    vector<vector<int>> a(n, vector<int>(n));
+    for (auto &row : a) for (int &x : row) cin >> x;
+    int best = INT_MIN;
+    for (int top = 0; top < n; ++top) {
+        vector<int> col(n, 0);
+        for (int bottom = top; bottom < n; ++bottom) {
+            for (int c = 0; c < n; ++c) col[c] += a[bottom][c];
+            int cur = 0;
+            for (int x : col) {
+                cur = max(x, cur + x);
+                best = max(best, cur);
+            }
+        }
+    }
+    cout << best << '\n';
+    return 0;
+}

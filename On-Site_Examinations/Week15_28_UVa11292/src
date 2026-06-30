@@ -1,34 +1,30 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-	int D, W;
-	while (cin >> D >> W) {
-		if (D == 0 && W == 0) break;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-		vector<int> drag(D), warrior(W);
-		for (int i = 0; i < D; i++) cin >> drag[i];
-		for (int i = 0; i < W; i++) cin >> warrior[i];
-
-		sort(drag.begin(), drag.end());
-		sort(warrior.begin(), warrior.end());
-
-		int i = 0, j = 0, ans = 0;
-		while (i < D && j < W) {
-			if (warrior[j] >= drag[i]) {  //從最小warrior開始找對drag first-fit的士兵
-				ans += warrior[j];
-				i++;
-				j++;
-			}
-			else {
-				j++;
-			}
-		}
-
-		if (i == D) cout << ans << endl;  //代表找到足夠多士兵
-		else cout << "Loowater is doomed!" << endl;
-	}
-	return 0;
+    int n, m;
+    while (cin >> n >> m && (n || m)) {
+        vector<int> head(n), knight(m);
+        for (int &x : head) cin >> x;
+        for (int &x : knight) cin >> x;
+        sort(head.begin(), head.end());
+        sort(knight.begin(), knight.end());
+        long long cost = 0;
+        int j = 0;
+        bool ok = true;
+        for (int h : head) {
+            while (j < m && knight[j] < h) ++j;
+            if (j == m) {
+                ok = false;
+                break;
+            }
+            cost += knight[j++];
+        }
+        if (ok) cout << cost << '\n';
+        else cout << "Loowater is doomed!\n";
+    }
+    return 0;
 }

@@ -1,34 +1,20 @@
-#include <iostream>
-#include <string>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-	string a, b;
-	while (getline(cin, a) && getline(cin, b)) {
-
-		vector<int> freq1(26, 0), freq2(26, 0);
-		for (int i = 0; i < a.length(); i++) {
-			int p1 = a[i] - 'a';
-			freq1[p1]++;
-		}
-		for (int i = 0; i < b.length(); i++) {
-			int p2 = b[i] - 'a';
-			freq2[p2]++;
-		}
-
-		
-
-		for (int i = 0; i < 26; i++) {
-			int same = min(freq1[i], freq2[i]);
-			for (int j = 0; j < same; j++) {
-				cout << char(i + 'a');
-			}
-		}
-		cout << endl;
-
-
-	}
+    string a, b;
+    while (getline(cin, a) && getline(cin, b)) {
+        vector<int> ca(256), cb(256);
+        for (unsigned char ch : a) ca[ch]++;
+        for (unsigned char ch : b) cb[ch]++;
+        for (int ch = 0; ch < 256; ++ch) {
+            int times = min(ca[ch], cb[ch]);
+            while (times--) cout << char(ch);
+        }
+        cout << '\n';
+    }
     return 0;
 }

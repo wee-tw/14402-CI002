@@ -1,37 +1,30 @@
-#include <iostream>
-#include <vector>
-#include <string>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-	int T;
-	cin >> T;
-	while (T--) {
-		int n;
-		cin >> n;
-		cin.ignore();
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-		vector<int> move(n);
-		int position = 0;
-
-		for (int i = 0; i < n; i++) {
-			string line;
-			getline(cin, line);
-
-			if (line == "LEFT") {
-				move[i] = -1;
-			}
-			else if (line == "RIGHT") {
-				move[i] = 1;
-			}
-			else {
-				int a = stoi(line.substr(8)) - 1;  //atoi()一行完成字符串到整數的轉換 -1是因為vector從0開始
-				move[i] = move[a];
-			}
-			position += move[i];
-		}
-
-		cout << position << endl;
-	}
-	return 0;
+    int T;
+    cin >> T;
+    while (T--) {
+        int n, pos = 0;
+        cin >> n;
+        vector<int> move(n + 1);
+        string cmd;
+        for (int i = 1; i <= n; ++i) {
+            cin >> cmd;
+            if (cmd == "LEFT") move[i] = -1;
+            else if (cmd == "RIGHT") move[i] = 1;
+            else {
+                string as_word;
+                int idx;
+                cin >> as_word >> idx;
+                move[i] = move[idx];
+            }
+            pos += move[i];
+        }
+        cout << pos << '\n';
+    }
+    return 0;
 }

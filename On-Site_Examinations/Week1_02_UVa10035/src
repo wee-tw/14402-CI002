@@ -1,41 +1,25 @@
-#include <iostream>
-#include <string>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-	string a, b;
-	while (cin >> a >> b) {
-		if (a == "0" && b == "0") break;
-		reverse(a.begin(), a.end());
-		reverse(b.begin(), b.end());
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-		while (a.length() > b.length()) b += "0";
-		while (a.length() < b.length()) a += "0";
-
-		int count = 0;
-		int carry = 0;
-		for (int i = 0; i < a.length(); i++) {
-			int sum = 0;
-			sum = (a[i] - '0') + (b[i] - '0') + carry;
-			if (sum > 9) {
-				carry = 1;
-				count++;
-			}
-			else {
-				carry = 0;
-			}
-		}
-
-		if (count == 0) {
-			cout << "No carry operation." << endl;
-		}
-		else if (count == 1) {
-			cout << "1 carry operation." << endl;
-		}
-		else if (count > 1) {
-			cout << count << " carry operations." << endl;
-		}
-	}
-	return 0;
+    string a, b;
+    while (cin >> a >> b && !(a == "0" && b == "0")) {
+        reverse(a.begin(), a.end());
+        reverse(b.begin(), b.end());
+        int carry = 0, ans = 0;
+        int n = max(a.size(), b.size());
+        for (int i = 0; i < n; ++i) {
+            int x = i < (int)a.size() ? a[i] - '0' : 0;
+            int y = i < (int)b.size() ? b[i] - '0' : 0;
+            carry = (x + y + carry) >= 10;
+            ans += carry;
+        }
+        if (ans == 0) cout << "No carry operation.\n";
+        else if (ans == 1) cout << "1 carry operation.\n";
+        else cout << ans << " carry operations.\n";
+    }
+    return 0;
 }

@@ -1,44 +1,24 @@
-#include <iostream>
-#include <list>
-#include <string>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
     string s;
-
     while (getline(cin, s)) {
-        list<string> parts;
-        auto it = parts.end();
-
-        string current = "";
-
-        for (char c : s) {
-            if (c == '[' || c == ']') {
-                if (!current.empty()) {
-                    parts.insert(it, current);
-                    current.clear();
-                }
-
-                if (c == '[') {
-                    it = parts.begin();
-                } else {
-                    it = parts.end();
-                }
-            } else {
-                current += c;
+        list<char> text;
+        auto it = text.end();
+        for (char ch : s) {
+            if (ch == '[') it = text.begin();
+            else if (ch == ']') it = text.end();
+            else {
+                it = text.insert(it, ch);
+                ++it;
             }
         }
-
-        if (!current.empty()) {
-            parts.insert(it, current);
-        }
-
-        for (string part : parts) {
-            cout << part;
-        }
-
-        cout << "\n";
+        for (char ch : text) cout << ch;
+        cout << '\n';
     }
-
     return 0;
 }

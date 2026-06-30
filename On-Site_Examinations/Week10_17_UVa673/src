@@ -1,44 +1,29 @@
-#include <iostream>
-#include <stack>
-#include <string>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-    int n;
-    string line;
-    cin >> n;
-    cin.ignore();  // 忽略换行符
-    
-    while (n--) {
-        getline(cin, line);
-        stack<char> s;
-        bool balanced = true;
-        
-        for (char c : line) {
-            if (c == '(' || c == '[') {  //左括號就push
-                s.push(c);
-            } else if (c == ')') {  //遇到右括號要檢查 !st.empty() 與是否匹配
-                if (!s.empty() && s.top() == '(') {
-                    s.pop();
-                } else {
-                    balanced = false;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int T;
+    cin >> T;
+    string s;
+    getline(cin, s);
+    while (T--) {
+        getline(cin, s);
+        stack<char> st;
+        bool ok = true;
+        for (char ch : s) {
+            if (ch == '(' || ch == '[') st.push(ch);
+            else if (ch == ')' || ch == ']') {
+                if (st.empty() || (ch == ')' && st.top() != '(') || (ch == ']' && st.top() != '[')) {
+                    ok = false;
                     break;
                 }
-            } else if (c == ']') {
-                if (!s.empty() && s.top() == '[') {
-                    s.pop();
-                } else {
-                    balanced = false;
-                    break;
-                }
+                st.pop();
             }
         }
-        
-        if (balanced && s.empty()) {  //最後stack要為空！！！
-            cout << "Yes" << endl;
-        } else {
-            cout << "No" << endl;
-        }
+        cout << (ok && st.empty() ? "Yes" : "No") << '\n';
     }
     return 0;
 }

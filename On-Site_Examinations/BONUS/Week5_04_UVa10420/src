@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n;
+    cin >> n;
+    string line;
+    getline(cin, line);
+    map<string, int> cnt;
+    while (n-- && getline(cin, line)) {
+        stringstream ss(line);
+        string country;
+        ss >> country;
+        cnt[country]++;
+    }
+    for (map<string, int>::iterator it = cnt.begin(); it != cnt.end(); ++it) {
+        cout << it->first << ' ' << it->second << '\n';
+    }
+    return 0;
+}

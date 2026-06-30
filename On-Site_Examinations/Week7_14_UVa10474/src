@@ -1,81 +1,23 @@
-#include <iostream>
-#include <vector>
-#include <cmath>
-#include <algorithm>
-#include <map>
-#include <string>
-#include <cstring>
-#include <iomanip>
-#include <sstream>
-#include <set>
-
-#include <climits> //INT_MAX
-
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-    int t = 1;
-
-    int n, q;
-    while (cin >> n >> q) {
-        if (n == 0 && q == 0) break;
-
-        vector<int> marble(n);
-        for (int i = 0; i < n; i++) {
-            cin >> marble[i];
-        }
-
-        sort(marble.begin(), marble.end());
-
-        cout << "CASE# " << t++ << ":" << endl;
-
-
-
-
-
-
-        for (int i = 1; i <= q; i++) {
-            int target;
-            cin >> target;
-
-
-            auto it = lower_bound(marble.begin(), marble.end(), target);
-
-            if (it != marble.end() && *it == target) {
-                int pos = it - marble.begin() + 1;
-                cout << target << pos;
-            }
-            else {
-
-            }
-
-
-
-            /*
-
-            int pos;
-            bool found = false;
-            for (int j = 0; j < n; j++) {
-                if (marble[j] == find) {
-                    pos = j + 1; //1 based
-                    found = true;
-                    break;
-                }
-            }
-
-            if (found) {
-                cout << find << " found at " << pos << endl;
-            }
-            else {
-                cout << find << " not found" << endl;
-            }
-
-            */
+    int n, q, tc = 1;
+    while (cin >> n >> q && (n || q)) {
+        vector<int> a(n);
+        for (int &x : a) cin >> x;
+        sort(a.begin(), a.end());
+        cout << "CASE# " << tc++ << ":\n";
+        while (q--) {
+            int x;
+            cin >> x;
+            auto it = lower_bound(a.begin(), a.end(), x);
+            if (it != a.end() && *it == x) cout << x << " found at " << (it - a.begin() + 1) << '\n';
+            else cout << x << " not found\n";
         }
     }
-
-
-
     return 0;
 }

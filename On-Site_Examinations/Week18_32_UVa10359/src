@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string add_string(const string& a, const string& b) {
+    string ans;
+    int i = (int)a.size() - 1, j = (int)b.size() - 1, carry = 0;
+    while (i >= 0 || j >= 0 || carry) {
+        int sum = carry;
+        if (i >= 0) sum += a[i--] - '0';
+        if (j >= 0) sum += b[j--] - '0';
+        ans.push_back(char('0' + sum % 10));
+        carry = sum / 10;
+    }
+    reverse(ans.begin(), ans.end());
+    return ans;
+}
+
+string multiply_by_two(const string& a) {
+    string ans;
+    int carry = 0;
+    for (int i = (int)a.size() - 1; i >= 0; --i) {
+        int value = (a[i] - '0') * 2 + carry;
+        ans.push_back(char('0' + value % 10));
+        carry = value / 10;
+    }
+    if (carry) ans.push_back(char('0' + carry));
+    reverse(ans.begin(), ans.end());
+    return ans;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    vector<string> dp(251);
+    dp[0] = "1";
+    dp[1] = "1";
+    for (int i = 2; i <= 250; ++i) dp[i] = add_string(dp[i - 1], multiply_by_two(dp[i - 2]));
+    int n;
+    while (cin >> n) cout << dp[n] << '\n';
+    return 0;
+}

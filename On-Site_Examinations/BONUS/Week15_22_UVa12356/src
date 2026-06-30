@@ -1,35 +1,29 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-    int S, B;
-    while (cin >> S >> B) {
-        if (S == 0 && B == 0) break;
-
-        vector<int> left(S + 2), right(S + 2);
-        for (int i = 1; i <= S; i++) {
+    int s, b;
+    while (cin >> s >> b && (s || b)) {
+        vector<int> left(s + 2), right(s + 2);
+        for (int i = 1; i <= s; ++i) {
             left[i] = i - 1;
             right[i] = i + 1;
         }
-        left[1] = -1;
-        right[S] = -1;
-
-        while (B--) {
-            int L, R;
-            cin >> L >> R;
-
-            int l = left[L];
-            int r = right[R];
-
-            if (l == -1) cout << "* ";
-            else cout << l << " ";
-            if (r == -1) cout << "*\n";
-            else cout << r << "\n";
-
-            if (l != -1) right[l] = r;
-            if (r != -1) left[r] = l;
+        while (b--) {
+            int l, r;
+            cin >> l >> r;
+            int nl = left[l], nr = right[r];
+            if (nl < 1) cout << '*';
+            else cout << nl;
+            cout << ' ';
+            if (nr > s) cout << '*';
+            else cout << nr;
+            cout << '\n';
+            if (nl >= 1) right[nl] = nr;
+            if (nr <= s) left[nr] = nl;
         }
         cout << "-\n";
     }

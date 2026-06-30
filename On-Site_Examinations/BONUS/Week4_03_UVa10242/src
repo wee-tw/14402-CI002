@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Point {
+    double x, y;
+};
+
+bool same(Point a, Point b) {
+    return fabs(a.x - b.x) < 1e-9 && fabs(a.y - b.y) < 1e-9;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    Point p[4];
+    while (cin >> p[0].x >> p[0].y >> p[1].x >> p[1].y >> p[2].x >> p[2].y >> p[3].x >> p[3].y) {
+        Point common{}, a{}, b{};
+        for (int i = 0; i < 4; ++i) {
+            for (int j = i + 1; j < 4; ++j) {
+                if (same(p[i], p[j])) {
+                    common = p[i];
+                    vector<Point> others;
+                    for (int k = 0; k < 4; ++k) if (k != i && k != j) others.push_back(p[k]);
+                    a = others[0];
+                    b = others[1];
+                }
+            }
+        }
+        cout << fixed << setprecision(3) << a.x + b.x - common.x << ' ' << a.y + b.y - common.y << '\n';
+    }
+    return 0;
+}

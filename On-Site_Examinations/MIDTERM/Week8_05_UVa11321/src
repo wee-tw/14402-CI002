@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m;
+    while (cin >> n >> m) {
+        cout << n << ' ' << m << '\n';
+        if (n == 0 && m == 0) break;
+        vector<int> a(n);
+        for (int &x : a) cin >> x;
+        sort(a.begin(), a.end(), [m](int x, int y) {
+            int rx = x % m, ry = y % m;
+            if (rx != ry) return rx < ry;
+            bool ox = abs(x) % 2 == 1, oy = abs(y) % 2 == 1;
+            if (ox != oy) return ox > oy;
+            if (ox) return x > y;
+            return x < y;
+        });
+        for (int x : a) cout << x << '\n';
+    }
+    return 0;
+}

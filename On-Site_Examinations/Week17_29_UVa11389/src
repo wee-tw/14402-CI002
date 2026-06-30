@@ -1,0 +1,20 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, d, r;
+    while (cin >> n >> d >> r && (n || d || r)) {
+        vector<int> morning(n), evening(n);
+        for (int &x : morning) cin >> x;
+        for (int &x : evening) cin >> x;
+        sort(morning.begin(), morning.end());
+        sort(evening.rbegin(), evening.rend());
+        int overtime = 0;
+        for (int i = 0; i < n; ++i) overtime += max(0, morning[i] + evening[i] - d);
+        cout << overtime * r << '\n';
+    }
+    return 0;
+}

@@ -1,43 +1,27 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 
+int level_of(long long node) {
+    int level = 0;
+    while (node > 1) {
+        node >>= 1;
+        ++level;
+    }
+    return level;
+}
+
 int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-	int t;
-	cin >> t;
-	while (t--) {
-
-		int n, a, b;
-		cin >> n >> a >> b;
-
-		int total = 1;
-		for (int i = 0; i < n; i++) total *= 2;
-		total -= 1;
-
-
-		int MAX = max(a, b);
-
-		int temp = MAX;
-
-		int count = 0;
-		int c = 1;
-
-		while (true) {
-
-			int father = 2 * temp;
-			int mother = father + 1;
-
-			if (father > total) break;
-
-			temp = father;
-
-			c *= 2;
-			count += c;
-		}
-
-		cout << total - count << endl;
-	}
-	return 0;
+    int T;
+    cin >> T;
+    while (T--) {
+        long long n, a, b;
+        cin >> n >> a >> b;
+        int deepest = max(level_of(a), level_of(b));
+        long long answer = (1LL << n) - (1LL << (n - deepest)) + 1;
+        cout << answer << '\n';
+    }
+    return 0;
 }

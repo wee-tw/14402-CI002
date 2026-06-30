@@ -1,35 +1,21 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-	int t;
-	cin >> t;
-	while (t--) {
-
-		int n;
-		cin >> n;
-		vector<int> v(n);
-		for (int i = 0; i < n; i++) cin >> v[i];
-
-		sort(v.begin(), v.end());
-
-		int mid = v[n / 2];
-
-		int count = 0;
-
-		for (int i = 0; i < n; i++) {
-			count += abs(mid - v[i]);
-		}
-
-		cout << count << endl;
-
-
-	}
-
-
-	return 0;
+    int T;
+    cin >> T;
+    while (T--) {
+        int n;
+        cin >> n;
+        vector<int> a(n);
+        for (int &x : a) cin >> x;
+        sort(a.begin(), a.end());
+        int med = a[n / 2], ans = 0;
+        for (int x : a) ans += abs(x - med);
+        cout << ans << '\n';
+    }
+    return 0;
 }

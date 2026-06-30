@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    unordered_map<string, string> dict;
+    string line;
+    while (getline(cin, line) && !line.empty()) {
+        string english, foreign;
+        stringstream ss(line);
+        ss >> english >> foreign;
+        dict[foreign] = english;
+    }
+    string word;
+    while (cin >> word) {
+        auto it = dict.find(word);
+        if (it == dict.end()) cout << "eh\n";
+        else cout << it->second << '\n';
+    }
+    return 0;
+}

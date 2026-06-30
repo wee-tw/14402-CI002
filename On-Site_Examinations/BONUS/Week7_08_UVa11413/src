@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool can_fill(const vector<int>& v, int containers, int cap) {
+    int used = 1, cur = 0;
+    for (int x : v) {
+        if (x > cap) return false;
+        if (cur + x > cap) {
+            ++used;
+            cur = 0;
+        }
+        cur += x;
+    }
+    return used <= containers;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m;
+    while (cin >> n >> m) {
+        vector<int> v(n);
+        int lo = 0, hi = 0;
+        for (int &x : v) {
+            cin >> x;
+            lo = max(lo, x);
+            hi += x;
+        }
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (can_fill(v, m, mid)) hi = mid;
+            else lo = mid + 1;
+        }
+        cout << lo << '\n';
+    }
+    return 0;
+}

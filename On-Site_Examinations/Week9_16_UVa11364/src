@@ -1,23 +1,18 @@
-#include <iostream>
-#include <climits>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-    int t;
-    cin >> t;
-    while (t--) {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int T;
+    cin >> T;
+    while (T--) {
         int n;
         cin >> n;
-        int minPos = INT_MAX, maxPos = INT_MIN;
-        
-        for (int i = 0; i < n; i++) {
-            int x;
-            cin >> x;
-            if (x < minPos) minPos = x;
-            if (x > maxPos) maxPos = x;
-        }
-        
-        cout << (maxPos - minPos) * 2 << endl;  //只需知道max、min商店位置
+        vector<int> x(n);
+        for (int &v : x) cin >> v;
+        cout << 2 * (*max_element(x.begin(), x.end()) - *min_element(x.begin(), x.end())) << '\n';
     }
     return 0;
 }

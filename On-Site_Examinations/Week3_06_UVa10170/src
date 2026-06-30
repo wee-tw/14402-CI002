@@ -1,16 +1,15 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-    long long int S, D;
-    while (cin >> S >> D) {
-        long long int sum = 0;
-        long long int day = S;
-        while (sum < D) {
-            sum += day;
-            day++;
-        }
-        cout << day - 1 << endl;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    long long s, d;
+    while (cin >> s >> d) {
+        long long day = s, total = 0;
+        while (total < d) total += day++;
+        cout << day - 1 << '\n';
     }
     return 0;
 }
